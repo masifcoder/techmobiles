@@ -1,0 +1,6 @@
+backend/node_modules
+backend/.env
+backend/uploads
+admin/node_modules
+admin/.env
+
