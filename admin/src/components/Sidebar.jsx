@@ -1,6 +1,6 @@
 import React from 'react'
 import { Home, BarChart, Box, CreditCard, ShoppingCart, Users, Calendar } from "lucide-react";
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Sidebar = () => {
   return (
@@ -10,23 +10,38 @@ const Sidebar = () => {
       </div>
       <nav className="flex-1">
         <ul className="space-y-2">
-          <li className="bg-blue-500 text-white rounded-lg">
-            <Link to="/dashboard" className="flex items-center p-3 space-x-2">
+          <li>
+            <NavLink 
+              to="/dashboard" 
+              end={true}
+              className={({ isActive }) =>
+                isActive
+                  ? 'bg-blue-500 text-white rounded-lg flex items-center p-3 space-x-2'
+                  : 'flex items-center p-3 space-x-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg'
+              }>
               <Home size={20} />
               <span>Dashboard</span>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <a href="#" className="flex items-center p-3 space-x-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">
+            <NavLink to="/dashboard/create" end={true} className={({ isActive }) =>
+                isActive
+                  ? 'bg-blue-500 text-white rounded-lg flex items-center p-3 space-x-2'
+                  : 'flex items-center p-3 space-x-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg'
+              }>
               <BarChart size={20} />
-              <span>Statistics</span>
-            </a>
+              <span>Create Product</span>
+            </NavLink>
           </li>
           <li>
-            <Link to="/dashboard/products" className="flex items-center p-3 space-x-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">
+            <NavLink to="/dashboard/products" end={true} className={({ isActive }) =>
+                isActive
+                  ? 'bg-blue-500 text-white rounded-lg flex items-center p-3 space-x-2'
+                  : 'flex items-center p-3 space-x-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg'
+              }>
               <Box size={20} />
               <span>Products</span>
-            </Link>
+            </NavLink>
           </li>
           <li>
             <a href="#" className="flex items-center p-3 space-x-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">

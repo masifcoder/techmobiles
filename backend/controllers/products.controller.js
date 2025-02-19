@@ -4,12 +4,12 @@ const Product = require('../models/products.model');
 const createProduct = async (req, res) => {
   try {
     // Check if user is admin
-    if (req.role !== 'admin') {
-      return res.status(403).json({
-        success: false,
-        error: 'Only administrators can create products'
-      });
-    }
+    // if (req.role !== 'admin') {
+    //   return res.status(403).json({
+    //     success: false,
+    //     error: 'Only administrators can create products'
+    //   });
+    // }
     
     const product = await Product.create(req.body);
     

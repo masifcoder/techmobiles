@@ -6,7 +6,7 @@ const productRouter = express.Router();
 const  { createProduct, getAllProducts, updateProduct, deleteProduct } = require("../controllers/products.controller");
 
 
-productRouter.post("/create", authMiddleware, createProduct);
+productRouter.post("/create", createProduct);
 productRouter.get("/all", getAllProducts);
 productRouter.put("/update/:id", authMiddleware, updateProduct);
 productRouter.delete("/delete/:id", authMiddleware, deleteProduct);

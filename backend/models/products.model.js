@@ -27,39 +27,20 @@ const productSchema = new mongoose.Schema({
     default: true
   },
   ram: {
-    type: Number,
+    type: String,
     required: [true, 'RAM specification is required'],
-    enum: {
-      values: [2, 3, 4, 6, 8, 12, 16, 32, 64, 128, 256, 512],
-      message: 'Please specify a valid RAM size in GB'
-    }
   },
   screensize: {
-    type: Number,
-    required: [true, 'Screen size is required'],
-    min: [3, 'Screen size must be at least 3 inches'],
-    max: [9, 'Screen size must be less than 9 inches']
-  },
-  category: {
     type: String,
-    required: [true, 'Category is required'],
-    enum: {
-      values: ['smartphone', 'tablet', 'feature phone'],
-      message: 'Please specify a valid device category'
-    }
+    required: [true, 'Screen size is required'],
   },
   storage: {
-    type: Number,
+    type: String,
     required: [true, 'Storage capacity is required'],
-    enum: {
-      values: [16, 32, 64, 128, 256, 512, 1024],
-      message: 'Please specify a valid storage capacity in GB'
-    }
   },
   cameraPixels: {
-    type: Number,
-    required: [true, 'Camera specification is required'],
-    min: [2, 'Camera must be at least 2MP']
+    type: String,
+    required: [true, 'Camera specification is required']
   },
   model: {
     type: String,

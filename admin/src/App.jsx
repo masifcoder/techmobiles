@@ -9,10 +9,10 @@ import Notfound from './pages/Notfound';
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Products from "./pages/dashboard/Products";
+import CreateProductForm from './pages/dashboard/CreateProductForm';
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
@@ -22,6 +22,7 @@ function App() {
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<DashboardHome />} />
           <Route path='products' element={<Products />} />
+          <Route path="create" element={<CreateProductForm />} />
           <Route path="profile" element={<Profile />} />
           <Route path="settings" element={<Settings />} />
         </Route>
