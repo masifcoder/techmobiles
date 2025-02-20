@@ -16,13 +16,112 @@ const CAMERA_PIXEL_OPTIONS = ["8MP", "12MP", "16MP", "32MP", "48MP", "64MP", "10
 const CreateProductForm = () => {
     const [form] = Form.useForm();
     const [description, setDescription] = useState("");
+    const [fileList, setFileList] = useState([]);
+    const [images, setImages] = useState([]);
+
+
+    const uploadImage = async (file) => {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append('folder', '/uploads');
+        formData.append('fileName', file.name);
+
+        try {
+            const response = await axios.post("https://upload.imagekit.io/api/v1/files/upload", formData, {
+                auth: {
+                    username: 'private_FWdsBBkYqk1KOIiPX1opiNFAJcY=', // Replace with your private API key
+                },
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            console.log(response.data);
+
+            if (response.data && response.data.url) {
+
+                setImages(prev => [...prev, {[file.uid]: response.data.url}  ]);
+
+            
+                message.success({
+                    content: `${file.name} uploaded successfully`,
+                    duration: 2,
+                    style: { position: "fixed", top: 20, right: 20 }, // Top-right
+                });
+                return response.data.url;
+            }
+        } catch (error) {
+            message.error({
+                content: `Upload failed: ${error.message}`,
+                duration: 2,
+                style: { position: "fixed", bottom: 20, right: 20 }, // Bottom-right
+            });
+        }
+    };
+
+    const handleUpload = async ({ file, onSuccess, onError }) => {
+        try {
+            await uploadImage(file);
+            onSuccess("ok");
+        } catch (err) {
+            onError("Upload failed");
+        }
+    };
+
+    const handleChange = ({ fileList, file }) => {
+       // console.log(fileList)
+        console.log(file)
+        if (fileList.length > 4) {
+            message.warning({
+                content: "You can only upload up to 4 images.",
+                duration: 2,
+                style: { position: "fixed", top: 20, right: 20 }, // Top-right
+            });
+            return;
+        }
+         // Remove image from images state if file is removed
+         if (file.status === 'removed') {
+            setImages(prev => prev.filter(img => !img[file.uid]));
+        }
+        setFileList(fileList);
+    };
+
+    const beforeUpload = (file) => {
+        if (fileList.length >= 4) {
+            message.warning({
+                content: "You can only upload up to 4 images.",
+                duration: 2,
+                style: { position: "fixed", top: 20, right: 20 }, // Top-right
+            });
+            return Upload.LIST_IGNORE;
+        }
+        return true;
+    };
+
 
     const onFinish = async (values) => {
         try {
+
+            // convert images to images url object
+            const imageUrls = [];
+            for(let obj of images) {
+                // Get the first (and only) value from the object
+                const url = Object.values(obj)[0];
+                imageUrls.push(url);
+            }
+
+            // console.log(imageUrls);
+
+            // return;
+
             const productData = {
                 ...values,
-                description
+                description,
+                images: imageUrls
             };
+
+            // console.log(productData);
+            // return;
 
             const response = await axios.post('http://localhost:3000/api/product/create', productData, {
                 headers: {
@@ -31,7 +130,7 @@ const CreateProductForm = () => {
             });
 
             message.success('Product created successfully!');
-            form.resetFields();
+            //form.resetFields();
             setDescription("");
         } catch (error) {
             message.error(error.response?.data?.message || 'Failed to create product');
@@ -39,17 +138,18 @@ const CreateProductForm = () => {
         }
     };
 
+
     return (
         <>
-            <Form form={form} layout="vertical" onFinish={onFinish} initialValues={{}}>
+                       <Form form={form} layout="vertical" onFinish={onFinish} initialValues={{}}>
                 <Form.Item name="name" label="Name" rules={[{ required: true, message: "Please enter the product name" }]}>
                     <Input size="large" placeholder="Enter product name" />
                 </Form.Item>
-                
+
                 <div style={{ display: 'flex', gap: '16px' }}>
-                    <Form.Item 
-                        name="price" 
-                        label="Price" 
+                    <Form.Item
+                        name="price"
+                        label="Price"
                         rules={[{ required: true, message: "Please enter the price" }]}
                         style={{ flex: 1 }}
                     >
@@ -74,9 +174,9 @@ const CreateProductForm = () => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '16px' }}>
-                    <Form.Item 
-                        name="ram" 
-                        label="RAM" 
+                    <Form.Item
+                        name="ram"
+                        label="RAM"
                         rules={[{ required: true, message: "Please select RAM" }]}
                         style={{ flex: 1 }}
                     >
@@ -87,9 +187,9 @@ const CreateProductForm = () => {
                         </Select>
                     </Form.Item>
 
-                    <Form.Item 
-                        name="storage" 
-                        label="Storage" 
+                    <Form.Item
+                        name="storage"
+                        label="Storage"
                         rules={[{ required: true, message: "Please select storage capacity" }]}
                         style={{ flex: 1 }}
                     >
@@ -102,9 +202,9 @@ const CreateProductForm = () => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '16px' }}>
-                    <Form.Item 
-                        name="screensize" 
-                        label="Screen Size" 
+                    <Form.Item
+                        name="screensize"
+                        label="Screen Size"
                         rules={[{ required: true, message: "Please select screen size" }]}
                         style={{ flex: 1 }}
                     >
@@ -115,9 +215,9 @@ const CreateProductForm = () => {
                         </Select>
                     </Form.Item>
 
-                    <Form.Item 
-                        name="cameraPixels" 
-                        label="Camera Pixel" 
+                    <Form.Item
+                        name="cameraPixels"
+                        label="Camera Pixel"
                         rules={[{ required: true, message: "Please select camera pixel" }]}
                         style={{ flex: 1 }}
                     >
@@ -130,9 +230,9 @@ const CreateProductForm = () => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '16px' }}>
-                    <Form.Item 
-                        name="brand" 
-                        label="Brand" 
+                    <Form.Item
+                        name="brand"
+                        label="Brand"
                         rules={[{ required: true, message: "Please select a brand" }]}
                         style={{ flex: 1 }}
                     >
@@ -145,9 +245,9 @@ const CreateProductForm = () => {
                         </Select>
                     </Form.Item>
 
-                    <Form.Item 
-                        name="model" 
-                        label="Model" 
+                    <Form.Item
+                        name="model"
+                        label="Model"
                         rules={[{ required: true, message: "Please enter model" }]}
                         style={{ flex: 1 }}
                     >
@@ -156,18 +256,25 @@ const CreateProductForm = () => {
                 </div>
 
                 <Form.Item name="images" label="Upload Images">
-                    <Upload multiple listType="picture-card" beforeUpload={() => false}>
-                        <div>
-                            <PlusOutlined />
-                            <div style={{ marginTop: 8 }}>Upload</div>
-                        </div>
+                    <Upload
+                        multiple
+                        customRequest={handleUpload}
+                        listType="picture"
+                        fileList={fileList}
+                        beforeUpload={beforeUpload}
+                        onChange={handleChange}
+                    >
+                        {fileList.length < 4 && (
+                            <Button icon={<PlusOutlined />}>Upload Images (Max 4)</Button>
+                        )}
                     </Upload>
                 </Form.Item>
 
+
                 <Form.Item label="Description" name="description" rules={[{ required: true, message: "Please enter product description" }]}>
-                    <ReactQuill 
-                        value={description} 
-                        onChange={setDescription} 
+                    <ReactQuill
+                        value={description}
+                        onChange={setDescription}
                         style={{ height: '300px', marginBottom: '50px' }}
                     />
                 </Form.Item>

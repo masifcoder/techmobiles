@@ -16,7 +16,7 @@ const productSchema = new mongoose.Schema({
     type: Number,
     min: [0, 'Discounted price cannot be negative'],
     validate: {
-      validator: function(value) {
+      validator: function (value) {
         return value <= this.price;
       },
       message: 'Discounted price must be less than or equal to regular price'
@@ -50,6 +50,14 @@ const productSchema = new mongoose.Schema({
   brand: {
     type: String,
     required: [true, 'Brand name is required'],
+    trim: true
+  },
+  images: {
+    type: [String],
+    required: [true, "Images are required"]
+  },
+  description: {
+    type: String,
     trim: true
   }
 }, {

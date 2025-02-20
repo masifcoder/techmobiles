@@ -16,7 +16,7 @@ const Topbar = () => {
         }
     }, [darkMode]);
     return (
-        <div className="flex items-center justify-between dark:bg-gray-900 p-4 shadow-md">
+        <div className="flex items-center justify-between dark:bg-gray-900 p-4">
             {/* Search Bar */}
             <div className="relative w-64">
                 <input

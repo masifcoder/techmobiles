@@ -11,6 +11,10 @@ const createProduct = async (req, res) => {
     //   });
     // }
     
+    // console.log(req.body);
+    // return;
+
+
     const product = await Product.create(req.body);
     
     return res.status(201).json({
@@ -33,7 +37,7 @@ const getAllProducts = async (req, res) => {
     return res.status(200).json({
       success: true,
       count: products.length,
-      data: products
+      products: products
     });
   } catch (error) {
     console.log(error);
