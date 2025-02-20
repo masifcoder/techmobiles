@@ -70,6 +70,10 @@ const Products = () => {
 
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
+      <h1 className="text-3xl font-bold mb-4">All Products</h1>
+      <p className="text-gray-700 dark:text-gray-300 mb-6">
+        Welcome to your dashboard! This layout uses Tailwind CSS's grid system to create a responsive two-column layout.
+      </p>
       <h2 className="text-xl font-semibold mb-4">All Products</h2>
       <DataTable
         columns={columns}

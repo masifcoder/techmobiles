@@ -40,9 +40,9 @@ const CreateProductForm = () => {
 
             if (response.data && response.data.url) {
 
-                setImages(prev => [...prev, {[file.uid]: response.data.url}  ]);
+                setImages(prev => [...prev, { [file.uid]: response.data.url }]);
 
-            
+
                 message.success({
                     content: `${file.name} uploaded successfully`,
                     duration: 2,
@@ -69,7 +69,7 @@ const CreateProductForm = () => {
     };
 
     const handleChange = ({ fileList, file }) => {
-       // console.log(fileList)
+        // console.log(fileList)
         console.log(file)
         if (fileList.length > 4) {
             message.warning({
@@ -79,8 +79,8 @@ const CreateProductForm = () => {
             });
             return;
         }
-         // Remove image from images state if file is removed
-         if (file.status === 'removed') {
+        // Remove image from images state if file is removed
+        if (file.status === 'removed') {
             setImages(prev => prev.filter(img => !img[file.uid]));
         }
         setFileList(fileList);
@@ -104,7 +104,7 @@ const CreateProductForm = () => {
 
             // convert images to images url object
             const imageUrls = [];
-            for(let obj of images) {
+            for (let obj of images) {
                 // Get the first (and only) value from the object
                 const url = Object.values(obj)[0];
                 imageUrls.push(url);
@@ -141,7 +141,12 @@ const CreateProductForm = () => {
 
     return (
         <>
-                       <Form form={form} layout="vertical" onFinish={onFinish} initialValues={{}}>
+        <h1 className="text-3xl font-bold mb-4">Create Product</h1>
+          <p className="text-gray-700 dark:text-gray-300 mb-6">
+            Welcome to your dashboard! This layout uses Tailwind CSS's grid system to create a responsive two-column layout.
+          </p>
+
+            <Form form={form} layout="vertical" onFinish={onFinish} initialValues={{}}>
                 <Form.Item name="name" label="Name" rules={[{ required: true, message: "Please enter the product name" }]}>
                     <Input size="large" placeholder="Enter product name" />
                 </Form.Item>
