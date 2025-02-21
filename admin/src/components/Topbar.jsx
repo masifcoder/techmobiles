@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Bell, Search, Sun, Moon } from "lucide-react";
+import UserDropdown from './UserDropdown';
 
 const Topbar = () => {
     const [darkMode, setDarkMode] = useState(
@@ -45,14 +46,8 @@ const Topbar = () => {
 
                 {/* User Profile */}
                 <div className="flex items-center gap-2">
-                    <img
-                        src="https://via.placeholder.com/40"
-                        alt="User Avatar"
-                        className="w-10 h-10 rounded-full border-2 border-gray-300 dark:border-gray-600"
-                    />
                     <div>
-                        <p className="text-sm font-semibold text-gray-700 dark:text-white">Zachary A.</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">Owner Admin</p>
+                        <UserDropdown />
                     </div>
                 </div>
             </div>
