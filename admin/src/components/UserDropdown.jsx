@@ -1,13 +1,13 @@
 import React from "react";
 import { Dropdown, Menu, Avatar, Typography } from "antd";
-import { UserOutlined, LogoutOutlined, EditOutlined } from "@ant-design/icons";
+import { UserOutlined, LogoutOutlined, EditOutlined, CaretDownOutlined } from "@ant-design/icons";
 
 const { Text } = Typography;
 
 const UserDropdown = () => {
   const user = {
     name: "Bryan Adams",
-    role: "Manager",
+    role: "Admin",
     avatar: "https://randomuser.me/api/portraits/women/44.jpg", // Replace with actual avatar URL
   };
 
@@ -40,6 +40,7 @@ const UserDropdown = () => {
             {user.role}
           </Text>
         </div>
+        <CaretDownOutlined style={{ fontSize: '12px' }} />
       </div>
     </Dropdown>
   );

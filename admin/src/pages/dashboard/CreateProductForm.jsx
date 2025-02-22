@@ -140,7 +140,7 @@ const CreateProductForm = () => {
 
 
     return (
-        <>
+        <div className="bg-white p-6 rounded-md shadow-sm">
         <h1 className="text-3xl font-bold mb-4">Create Product</h1>
           <p className="text-gray-700 dark:text-gray-300 mb-6">
             Welcome to your dashboard! This layout uses Tailwind CSS's grid system to create a responsive two-column layout.
@@ -290,7 +290,7 @@ const CreateProductForm = () => {
                     </Button>
                 </Form.Item>
             </Form >
-        </>
+        </div>
     );
 };
 

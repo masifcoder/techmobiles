@@ -7,14 +7,14 @@ import Topbar from '../components/Topbar'
 const DashboardLayout = () => {
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-4 min-h-screen">
+      <div className="grid grid-cols-1 md:grid-cols-6 min-h-screen">
         {/* Sidebar Menu */}
-        <aside className="bg-slate-100 text-white p-6 pt-0 ps-0 md:col-span-1">
+        <aside className="bg-white text-white p-6 pt-0 ps-0 md:col-span-1">
             <Sidebar />
         </aside>
 
         {/* Main Content */}
-        <main className="bg-white dark:bg-gray-700 p-6 md:col-span-3">
+        <main className="bg-slate-100 dark:bg-gray-700 p-6 md:col-span-5">
           <div className='mb-3'>
             <Topbar />
           </div>

@@ -16,6 +16,7 @@ const SalesChart = () => {
     plotOptions: {
       bar: {
         horizontal: true,
+        barHeight: '20%'
       },
     },
     colors: ["#007bff"],
@@ -40,7 +41,7 @@ const SalesChart = () => {
       <Chart options={chartOptions} series={chartSeries} type="bar" height={300} />
       <div className="mt-4">
         {salesData.map((data, index) => (
-          <div key={index} className="flex justify-between items-center border-b py-2">
+          <div key={index} className="flex justify-between items-center border-b border-b-gray-200 py-2">
             <span className="font-medium">{data.state}</span>
             <span className="text-green-600 font-bold">${data.sales.toFixed(2)} ({data.growth}%) ↑</span>
           </div>

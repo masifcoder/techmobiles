@@ -42,7 +42,7 @@ const ChannelsVisitChart = () => {
     tooltip: {
       enabled: true,
       y: {
-        formatter: function(value) {
+        formatter: function (value) {
           return value + '%';
         }
       },
@@ -72,7 +72,7 @@ const ChannelsVisitChart = () => {
         horizontal: 10,
         vertical: 5
       },
-      formatter: function(seriesName, opts) {
+      formatter: function (seriesName, opts) {
         return seriesName;
       }
     },
@@ -99,18 +99,18 @@ const ChannelsVisitChart = () => {
   };
 
   return (
-    <div className="relative bg-white rounded-lg p-5 shadow-sm max-w-xs">
+    <div className="relative bg-white rounded-lg p-5 shadow-sm mb-5">
       <div className="mb-1">
         <h2 className="text-xl font-bold text-gray-800">Channels</h2>
         <p className="text-gray-400 text-sm">Visit Channels</p>
       </div>
-      
+
       <div className="relative">
-        <ReactApexChart 
-          options={options} 
-          series={series} 
-          type="radialBar" 
-          height={280} 
+        <ReactApexChart
+          options={options}
+          series={series}
+          type="radialBar"
+          height={280}
         />
         <CustomTooltip />
         <GrowthIndicator />

@@ -19,17 +19,17 @@ const Topbar = () => {
     return (
         <div className="flex items-center justify-between dark:bg-gray-900 p-4">
             {/* Search Bar */}
-            <div className="relative w-64">
+            <div className="relative w-96">
                 <input
                     type="text"
                     placeholder="Search here..."
-                    className="w-full px-4 py-2 rounded-full bg-white dark:bg-gray-800 text-gray-700 dark:text-white focus:outline-none shadow-sm"
+                    className="w-full px-4 py-2.5 rounded-full bg-white dark:bg-gray-800 text-gray-700 dark:text-white focus:outline-none shadow-sm"
                 />
-                <Search className="absolute right-3 top-2 text-gray-500 dark:text-gray-400" size={18} />
+                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400" size={18} />
             </div>
 
             {/* Right Side */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6">
                 {/* Light/Dark Mode Toggle */}
                 <button
                     onClick={() => setDarkMode(!darkMode)}

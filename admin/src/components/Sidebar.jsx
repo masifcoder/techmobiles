@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 const Sidebar = () => {
   return (
-    <div className="h-screen bg-white dark:bg-gray-700 shadow-md p-4 flex flex-col">
+    <div className="h-screen  dark:bg-gray-700  p-4 flex flex-col">
       <div className="flex items-center space-x-2 px-2 mb-6">
         <div className="text-blue-500 dark:text-blue-400 font-bold text-xl">Nexmart</div>
       </div>

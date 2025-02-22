@@ -34,8 +34,8 @@ const columns = [
 
 const TopProductsTable = () => {
   return (
-    <div>
-      <h2>Top Mobile Products</h2>
+    <div className="bg-white rounded-xl p-6 shadow-sm">
+      <h2 className="text-xl font-semibold">Top 5 Products</h2>
       <DataTable
         columns={columns}
         data={topProducts}

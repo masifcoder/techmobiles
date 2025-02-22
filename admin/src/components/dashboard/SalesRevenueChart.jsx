@@ -25,10 +25,10 @@ const SalesRevenueAreaChart = () => {
     },
     title: {
       text: 'Monthly Sales & Revenue',
-      align: 'center',
+      align: 'left',
       style: {
         fontSize: '18px',
-        fontWeight: 'bold',
+        fontWeight: 'normal',
       },
     },
     xaxis: {
@@ -81,12 +81,12 @@ const SalesRevenueAreaChart = () => {
   ];
 
   return (
-    <div className="sales-revenue-area-chart">
+    <div className="sales-revenue-area-chart bg-white shadow-sm mb-5 rounded-lg p-6">
       <ReactApexChart 
         options={options} 
         series={series} 
         type="area" 
-        height={380} 
+        height={330} 
       />
     </div>
   );
