@@ -9,17 +9,28 @@ import HeroSlider from '../components/HeroSlider'
 const HomePage = () => {
   return (
     <div>
-        <Navbar />
+      <Navbar />
 
-          <HeroSlider />
+      <section className='py-6' id='heroSection'>
+        <HeroSlider />
+      </section>
 
+      <section className='py-6' id='productsSection'>
         <ProductsSection />
+      </section>
 
+      <section className='py-6' id='newArrivals'>
         <NewArrivals />
+      </section>
 
+      <section className='py-6' id='featuredSection'>
         <FeaturesSection />
+      </section>
 
+      <section className='py-6' id='footerSection'>
         <Footer />
+      </section>
+
     </div>
   )
 }

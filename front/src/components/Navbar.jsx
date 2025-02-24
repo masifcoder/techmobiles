@@ -1,17 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Search, User } from "lucide-react"
+import { Search, User, ShoppingCart } from "lucide-react"
+import Logo from "../images/Logo.svg";
 
 const Navbar = () => {
   return (
     <nav className="bg-white px-6 py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center flex-shrink-0 text-white mr-6">
-          <img className="h-8 w-auto sm:h-10" src="path-to-your-logo.png" alt="ELECTRO Logo" />
+          <img className="h-10 w-auto sm:h-10" src={Logo} alt="ELECTRO Logo" />
           <span className="font-semibold text-xl tracking-tight">ELECTRO</span>
         </div>
         <div className="hidden md:flex md:items-center md:justify-end md:flex-1 lg:w-auto">
-          <div className="text-sm lg:flex-grow">
+          <div className="text-sm lg:flex-grow text-center">
             <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-gray-900 mr-4">
               Home
             </Link>
@@ -31,14 +32,21 @@ const Navbar = () => {
               Contact
             </Link>
           </div>
-          <div className="flex items-center">
-            <a href="#" className="text-gray-700 hover:text-gray-900 mr-4">
-              <Search size={20} />
-            </a>
-            <a href="#" className="text-gray-700 hover:text-gray-900">
-              <User size={20} />
-            </a>
-          </div>
+        </div>
+        <div className="flex items-center">
+          <Link href="#" className="text-gray-700 hover:text-gray-900 mr-4">
+            <Search size={20} />
+          </Link>
+          <Link href="#" className="text-gray-700 hover:text-gray-900 mr-4 relative">
+            <ShoppingCart size={20} />
+            {/* Small indicator for products */}
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs flex justify-center items-center h-5 w-5 rounded-full p-1">
+              13 {/* Replace with dynamic product count */}
+            </span>
+          </Link>
+          <Link href="#" className="text-gray-700 hover:text-gray-900">
+            <User size={20} />
+          </Link>
         </div>
       </div>
     </nav>

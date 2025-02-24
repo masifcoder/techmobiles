@@ -21,11 +21,11 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-pink-50">
+    <div className="flex justify-center items-center min-h-screen bg-pink-50 px-10">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {features.map(feature => (
-          <div key={feature.id} className="bg-white p-8 rounded-2xl shadow-lg text-center">
-            <div className="text-4xl mb-4">{feature.icon}</div>
+          <div key={feature.id} className="bg-white p-8 py-12 max-w-md rounded-2xl shadow-lg text-center">
+            <div className="text-6xl mb-4">{feature.icon}</div>
             <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
             <p className="text-gray-600">{feature.description}</p>
           </div>
