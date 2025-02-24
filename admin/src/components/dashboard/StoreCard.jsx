@@ -3,7 +3,7 @@ import React from "react";
 
 const StoreCard = ({ icon: Icon, title, value, change, today, bgcolor, color }) => {
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-6 py-10 flex flex-col flex-1 h-full">
+    <div className="bg-white rounded-2xl shadow-sm p-6 py-8 flex flex-col flex-1 h-full">
       <div className="flex items-center space-x-3 mb-3">
         <div style={{ backgroundColor: bgcolor }} className="p-2 rounded-2xl"><Icon style={{color: color}} /></div>
         <h4 className="font-medium !mb-0" >{title}</h4>
