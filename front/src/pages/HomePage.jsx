@@ -11,7 +11,7 @@ const HomePage = () => {
     <div>
       <Navbar />
 
-      <section className='py-6' id='heroSection'>
+      <section className='py-6 pt-0' id='heroSection'>
         <HeroSlider />
       </section>
 
