@@ -45,7 +45,7 @@ const NewArrivals = () => {
         </div>
 
         {/* Right Side: Product List Section */}
-        <div className="flex-1 space-y-4">
+        <div className="flex-1 space-y-10">
           {products.map((product) => (
             <div key={product.id} className="flex items-center justify-between bg-white border border-slate-200 p-4 py-6 rounded-2xl">
               <div className="flex items-center space-x-4">
