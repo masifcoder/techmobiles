@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Checkbox, Card } from "antd";
 
-const RAM_OPTIONS = ["2GB", "4GB", "6GB", "8GB", "12GB", "16GB", "32GB"];
+const STORAGE_OPTIONS = ["16GB", "32GB", "64GB", "128GB", "256GB", "512GB", "1TB"];
 
-const RamFilter = () => {
-  const [selectedRams, setSelectedRams] = useState([]);
+const StorageFilter = () => {
+  const [selectedStorage, setSelectedRams] = useState([]);
 
   const handleChange = (checkedValues) => {
     setSelectedRams(checkedValues);
@@ -12,10 +12,10 @@ const RamFilter = () => {
   };
 
   return (
-    <Card title="Filer By Ram" className="w-full mx-auto mt-10 p-4">
+    <Card title="Filer By Storage" className="w-full mx-auto mt-10 p-4">
       <Checkbox.Group
-        options={RAM_OPTIONS}
-        value={selectedRams}
+        options={STORAGE_OPTIONS}
+        value={selectedStorage}
         onChange={handleChange}
         className="flex flex-col gap-2"
       />
@@ -23,4 +23,4 @@ const RamFilter = () => {
   );
 };
 
-export default RamFilter;
+export default StorageFilter;

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Checkbox } from 'antd';
+import { Checkbox, Card } from 'antd';
 
 const brands = [
   'Apple',
@@ -21,8 +21,7 @@ export default function BrandFilter() {
   };
 
   return (
-    <div className="bg-white p-4 rounded-2xl shadow-md w-64">
-      <h2 className="text-lg font-semibold mb-3">Brands</h2>
+    <Card title="Filer By Brand" className="w-full mx-auto mt-10 p-4">
       <div className="space-y-2">
         {brands.map((brand) => (
           <label key={brand} className="flex items-center space-x-2">
@@ -34,6 +33,6 @@ export default function BrandFilter() {
           </label>
         ))}
       </div>
-    </div>
+    </Card>
   );
 }
