@@ -1,20 +1,40 @@
-
-import { Rate, Button } from "antd"
+import { Rate, Button, notification } from "antd"
 import { Eye, Heart } from 'lucide-react';
 import { Link } from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {addToCart} from "../redux/cartSlice";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/cartSlice";
 
 const ProductCard = ({ product }) => {
   const dispatcher = useDispatch();
+
+  const addProductIntoCart = () => {
+    const cartProduct = {
+      id: product._id,
+      name: product.name,
+      brand: product.brand,
+      price: (product.discounted_price > 0) ? product.discounted_price : product.price,
+      quantity: 1,
+      color: product.color || 'Default',
+      size: product.size || 'M',
+      image: product.images[0]
+    };
+
+    dispatcher(addToCart(cartProduct));
+
+    notification.success({
+      message: 'Product Added',
+      description: `${product.name} has been added to your cart!`,
+      placement: 'topRight',
+    });
+  }
 
   return (
     <div className="bg-[#e2e8f096] rounded-2xl p-4 flex-1 mx-auto">
       <div className="relative">
         <img
-          src={product.image}
+          src={product.images[0]}
           alt={product.name}
-          className="w-full rounded-lg"
+          className="w-full rounded-lg h-[300px] object-fill"
         />
       </div>
       <div className="mt-4">
@@ -24,7 +44,7 @@ const ProductCard = ({ product }) => {
         </div>
         <p className="text-xl font-bold text-gray-900 mt-2">{product.price}</p>
         <div className="flex items-center space-x-2 mt-4">
-          <Button onClick={ () => dispatcher(addToCart(product))} color="danger" variant="solid">
+          <Button onClick={addProductIntoCart} color="danger" variant="solid">
             Add to cart
           </Button>
           {/* <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">

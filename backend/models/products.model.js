@@ -20,7 +20,8 @@ const productSchema = new mongoose.Schema({
         return value <= this.price;
       },
       message: 'Discounted price must be less than or equal to regular price'
-    }
+    },
+    default: 0
   },
   inStock: {
     type: Boolean,

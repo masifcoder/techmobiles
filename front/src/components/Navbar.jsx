@@ -38,7 +38,7 @@ const Navbar = () => {
           <Link href="#" className="text-gray-700 hover:text-gray-900 mr-4">
             <Search size={20} />
           </Link>
-          <Link href="#" className="text-gray-700 hover:text-gray-900 mr-4 relative">
+          <Link to="/cart" className="text-gray-700 hover:text-gray-900 mr-4 relative">
             <ShoppingCart size={20} />
             {/* Small indicator for products */}
             <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs flex justify-center items-center h-5 w-5 rounded-full p-1">

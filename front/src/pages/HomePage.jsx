@@ -1,17 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios';
 import Navbar from '../components/Navbar'
 import ProductsSection from '../components/ProductSection'
 import NewArrivals from '../components/NewArrivals'
 import FeaturesSection from '../components/FeaturesSection'
 import Footer from '../components/Footer'
 import HeroSlider from '../components/HeroSlider';
-import {useSelector, useDispatch} from "react-redux";
-import {purchase, sale, reset, bulkPurchase} from "../redux/counterSlice";
+import { apiClient } from '../utils/apiClient';
+
 
 const HomePage = () => {
-  const generalState = useSelector( state => state.general );
-  const dispatcher = useDispatch();
-  const [inputVal, setInputVal] = useState(0);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await apiClient.get('/api/product/all');
+        setProducts(response.data.products);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <div>
       <Navbar />
@@ -20,20 +33,8 @@ const HomePage = () => {
         <HeroSlider />
       </section>
 
-      <div>
-          <button onClick={ () => dispatcher(purchase()) } className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">1 purchase from factory</button>
-          <button onClick={ () => dispatcher(sale()) } className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2">1 soap Sale to customer</button>
-          <button onClick={ () => dispatcher(reset()) } className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Reset Soaps to 10</button>
-
-          <h1 className='my-3 text-2xl'>Total Soaps: {generalState.soap}</h1>
-          <h1 className='my-3 text-2xl'>Total Shampo: {generalState.shampo}</h1>
-
-          <input type='number' className='border ' onChange={ (e) => setInputVal(e.target.value) } />
-          <button onClick={ () => dispatcher(bulkPurchase(inputVal)) } className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">Bulk Purchase</button>
-      </div>
-
       <section className='py-6' id='productsSection'>
-        <ProductsSection />
+        <ProductsSection products={products} />
       </section>
 
       <section className='py-6' id='newArrivals'>
