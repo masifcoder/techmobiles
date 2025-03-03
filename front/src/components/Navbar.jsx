@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Search, User, ShoppingCart } from "lucide-react"
+import { Search, User, ShoppingCart, LogOut, LogIn } from "lucide-react"
 import Logo from "../images/Logo.svg";
-import {useSelector} from "react-redux"
+import { useSelector, useDispatch } from "react-redux";
 
 const Navbar = () => {
-  const cart = useSelector( state => state.cartState.cart);
+  const cart = useSelector(state => state.cartState.cart);
+  const dispatcher = useDispatch();
+  const isLogin = false;
+
+
   return (
     <nav className="bg-white px-6 py-4">
       <div className="flex items-center justify-between">
@@ -45,9 +49,16 @@ const Navbar = () => {
               {cart.length} {/* Replace with dynamic product count */}
             </span>
           </Link>
-          <Link href="#" className="text-gray-700 hover:text-gray-900">
-            <User size={20} />
-          </Link>
+          {
+            (isLogin == true) ? (<>
+              <Link onClick={() => {}} to='/profile' className="text-gray-700 hover:text-gray-900 mr-4">
+                <User size={20} />
+              </Link> 
+              <button onClick={ () => {} } className="text-gray-700 hover:text-gray-900">
+                <LogOut size={20} />
+              </button>
+            </>) : <button onClick={() => {} } className='curspor-pointer'><LogIn size={20} /></button>
+          }
         </div>
       </div>
     </nav>

@@ -4,6 +4,8 @@ import HomePage from './pages/HomePage'
 import Filters from './pages/Filters'
 import ProductDetailPage from './pages/productDetailPage'
 import ShopingCartPage from "./pages/ShoppingCartPage";
+import Login from "./pages/Login";
+import Signup from './pages/Signup'
 
 function App() {
 
@@ -11,6 +13,8 @@ function App() {
     <>
       <Routes>
           <Route path='/' element={<HomePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
           <Route path="/detail" element={<ProductDetailPage />} />
           <Route path='/products' element={<Filters />} />
           <Route path='/cart' element={<ShopingCartPage />} />
