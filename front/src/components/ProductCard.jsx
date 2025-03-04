@@ -9,11 +9,12 @@ const ProductCard = ({ product }) => {
 
   const addProductIntoCart = () => {
     const cartProduct = {
-      id: product._id,
+      productId: product._id,
       name: product.name,
       brand: product.brand,
       price: (product.discounted_price > 0) ? product.discounted_price : product.price,
       quantity: 1,
+      totalProductPrice: (product.discounted_price > 0) ? product.discounted_price  : product.price,
       color: product.color || 'Default',
       size: product.size || 'M',
       image: product.images[0]

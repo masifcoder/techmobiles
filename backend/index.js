@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const userRouter = require('./routes/user.routes');
 const productRouter = require('./routes/product.routes');
+const orderRouter = require('./routes/order.routes');
 
 // Load environment variables
 dotenv.config();
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/api/user', userRouter);
 app.use('/api/product', productRouter);
+app.use("/api/order", orderRouter);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI)

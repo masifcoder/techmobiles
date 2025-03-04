@@ -2,13 +2,19 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateQuantity } from "../redux/cartSlice";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { message } from 'antd';
+import {resetCart} from "../redux/cartSlice";
 
 const ShoppingCartPage = () => {
   const [couponCode, setCouponCode] = useState('');
   const cart = useSelector(state => state.cartState.cart);
   const [cartItems, setCartItems] = useState([]);
   const dispatcher = useDispatch();
-
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const token = useSelector(state => state.authSlice.token);
 
 
   // update quantity in global state
@@ -24,6 +30,53 @@ const ShoppingCartPage = () => {
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const discount = 5.00; // Example discount value
   const total = subtotal - discount;
+
+
+  // place order
+  const placeOrder = async () => {
+    setLoading(true);
+    try {
+       // Get token from Redux store
+      if (token == null) {
+        navigate("/login");
+      }
+      const orderData = {
+        items: cartItems,
+        totalPrice: subtotal,
+        discountedPrice: total
+      }
+
+      const response = await axios.post('http://localhost:3000/api/order/create', orderData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      setLoading(false);
+      if (response.data) {
+        // Show success message
+        message.success({
+          content: 'Order placed successfully!',
+          duration: 1,
+          style: { position: 'fixed', top: 20, right: 20 }
+        });
+        
+        // Empty the cart (assuming you have a cart state and setCart function)
+        dispatcher(resetCart());
+        setCartItems([]);
+        
+        return response.data;
+      }
+    } catch (error) {
+      setLoading(false);
+      message.error({
+        content: error.response?.data?.message || 'Failed to place order',
+        duration: 2,
+        style: { position: 'fixed', top: 20, right: 20 }
+      });
+      throw error;
+    }
+  }
 
   return (
     <>
@@ -164,7 +217,7 @@ const ShoppingCartPage = () => {
                   </div>
                 </div>
 
-                <button className="w-full bg-white rounded py-3 font-medium">
+                <button loading={loading} onClick={placeOrder} className="cursor-pointer w-full bg-white rounded py-3 font-medium">
                   Place Order
                 </button>
               </div>

@@ -17,7 +17,7 @@ const cartSlice = createSlice({
         updateQuantity: (state, action) => {
             if (action.payload.newQty < 1) return;
             state.cart = state.cart.map(item =>
-                item.id == action.payload.id ? { ...item, quantity: action.payload.newQty } : item
+                item.id == action.payload.id ? { ...item, quantity: action.payload.newQty, totalProductPrice: item.price * action.payload.newQty } : item
             );
         }
     }

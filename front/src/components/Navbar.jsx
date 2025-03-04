@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { Search, User, ShoppingCart, LogOut, LogIn } from "lucide-react"
 import Logo from "../images/Logo.svg";
 import { useSelector, useDispatch } from "react-redux";
+import {logout} from "../redux/authSlice"
 
 const Navbar = () => {
   const cart = useSelector(state => state.cartState.cart);
+  const { isLogin } = useSelector((state) => state.authSlice);
   const dispatcher = useDispatch();
-  const isLogin = false;
 
 
   return (
@@ -51,13 +52,13 @@ const Navbar = () => {
           </Link>
           {
             (isLogin == true) ? (<>
-              <Link onClick={() => {}} to='/profile' className="text-gray-700 hover:text-gray-900 mr-4">
+              <Link onClick={() => {}} to='/profile' className="text-gray-700 hover:text-gray-900 mr-4 cursor-pointer">
                 <User size={20} />
               </Link> 
-              <button onClick={ () => {} } className="text-gray-700 hover:text-gray-900">
+              <button onClick={ () => { dispatcher(logout()) } } className="text-gray-700 hover:text-gray-900 cursor-pointer">
                 <LogOut size={20} />
               </button>
-            </>) : <button onClick={() => {} } className='curspor-pointer'><LogIn size={20} /></button>
+            </>) : <Link to='/login' className='curspor-pointer'><LogIn size={20} /></Link>
           }
         </div>
       </div>
