@@ -5,7 +5,7 @@ import { updateQuantity } from "../redux/cartSlice";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
-import {resetCart} from "../redux/cartSlice";
+import { resetCart } from "../redux/cartSlice";
 
 const ShoppingCartPage = () => {
   const [couponCode, setCouponCode] = useState('');
@@ -36,7 +36,7 @@ const ShoppingCartPage = () => {
   const placeOrder = async () => {
     setLoading(true);
     try {
-       // Get token from Redux store
+      // Get token from Redux store
       if (token == null) {
         navigate("/login");
       }
@@ -60,11 +60,11 @@ const ShoppingCartPage = () => {
           duration: 1,
           style: { position: 'fixed', top: 20, right: 20 }
         });
-        
+
         // Empty the cart (assuming you have a cart state and setCart function)
         dispatcher(resetCart());
         setCartItems([]);
-        
+
         return response.data;
       }
     } catch (error) {
@@ -82,7 +82,7 @@ const ShoppingCartPage = () => {
     <>
       <Navbar />
       <div className="bg-gray-100 min-h-screen p-4">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Left Column - Cart Items */}
             <div className="lg:w-2/3">

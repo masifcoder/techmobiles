@@ -6,6 +6,8 @@ import ProductDetailPage from './pages/productDetailPage'
 import ShopingCartPage from "./pages/ShoppingCartPage";
 import Login from "./pages/Login";
 import Signup from './pages/Signup'
+import UserOrdersPage from './pages/UserOrdersPage'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
 
@@ -18,6 +20,7 @@ function App() {
           <Route path="/detail" element={<ProductDetailPage />} />
           <Route path='/products' element={<Filters />} />
           <Route path='/cart' element={<ShopingCartPage />} />
+          <Route path='/orders' element={ <ProtectedRoute><UserOrdersPage /></ProtectedRoute>} />
       </Routes>
     </>
   )

@@ -4,12 +4,35 @@ import { Search, User, ShoppingCart, LogOut, LogIn } from "lucide-react"
 import Logo from "../images/Logo.svg";
 import { useSelector, useDispatch } from "react-redux";
 import {logout} from "../redux/authSlice"
+import { Dropdown, Menu, Avatar } from 'antd';
 
 const Navbar = () => {
   const cart = useSelector(state => state.cartState.cart);
   const { isLogin } = useSelector((state) => state.authSlice);
   const dispatcher = useDispatch();
 
+  const userMenu = (
+    <Menu>
+        <Menu.Item key="profile">
+            <Link to="/profile" className="flex items-center">
+                <User size={16} className="mr-2" />
+                Profile
+            </Link>
+        </Menu.Item>
+        <Menu.Item key="orders">
+            <Link to="/orders" className="flex items-center">
+                <ShoppingCart size={16} className="mr-2" />
+                My Orders
+            </Link>
+        </Menu.Item>
+        <Menu.Item key="logout" onClick={() => dispatcher(logout())}>
+            <div className="flex items-center">
+                <LogOut size={16} className="mr-2" />
+                Logout
+            </div>
+        </Menu.Item>
+    </Menu>
+  );
 
   return (
     <nav className="bg-white px-6 py-4">
@@ -51,14 +74,18 @@ const Navbar = () => {
             </span>
           </Link>
           {
-            (isLogin == true) ? (<>
-              <Link onClick={() => {}} to='/profile' className="text-gray-700 hover:text-gray-900 mr-4 cursor-pointer">
-                <User size={20} />
-              </Link> 
-              <button onClick={ () => { dispatcher(logout()) } } className="text-gray-700 hover:text-gray-900 cursor-pointer">
-                <LogOut size={20} />
-              </button>
-            </>) : <Link to='/login' className='curspor-pointer'><LogIn size={20} /></Link>
+            (isLogin == true) ? (
+              <Dropdown overlay={userMenu} trigger={['click']}>
+                <div className="flex items-center text-gray-700 hover:text-gray-900 cursor-pointer">
+                  <Avatar 
+                    style={{ backgroundColor: '#87d068' }} 
+                    icon={<User size={16} />} 
+                    className="mr-2"
+                  />
+                  <span className='ms-1'>Account</span>
+                </div>
+              </Dropdown>
+            ) : <Link to='/login' className='curspor-pointer'><LogIn size={20} /></Link>
           }
         </div>
       </div>

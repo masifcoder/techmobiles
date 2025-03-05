@@ -10,13 +10,13 @@ const createProduct = async (req, res) => {
     //     error: 'Only administrators can create products'
     //   });
     // }
-    
+
     // console.log(req.body);
     // return;
 
 
     const product = await Product.create(req.body);
-    
+
     return res.status(201).json({
       success: true,
       data: product
@@ -33,7 +33,7 @@ const createProduct = async (req, res) => {
 const getAllProducts = async (req, res) => {
   try {
     const products = await Product.find({});
-    
+
     return res.status(200).json({
       success: true,
       count: products.length,
@@ -116,9 +116,43 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+// GET /products with filters
+const filterProducts = async (req, res) => {
+  const { minPrice, maxPrice, brand, ram, storage } = req.query;
+
+  let filter = {};
+
+  if (minPrice && maxPrice) {
+    filter.price = {};
+    if (minPrice) filter.price.$gte = Number(minPrice);
+    if (maxPrice) filter.price.$lte = Number(maxPrice);
+  }
+
+  if (brand) {
+    filter.brand = { $regex: new RegExp(`^${brand}$`, 'i') };
+  }
+  if (ram) filter.ram = ram;
+  if (storage) filter.storage = storage;
+
+  // console.log(filter);
+
+  // return;
+
+  try {
+    const products = await Product.find(filter);
+    return res.status(200).json({
+      success: true,
+      products: products
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+};
+
 module.exports = {
   createProduct,
   getAllProducts,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  filterProducts
 }; 
