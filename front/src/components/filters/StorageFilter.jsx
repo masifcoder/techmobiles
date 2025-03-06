@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Checkbox, Card } from "antd";
 
 const STORAGE_OPTIONS = ["16GB", "32GB", "64GB", "128GB", "256GB", "512GB", "1TB"];
 
-const StorageFilter = () => {
+const StorageFilter = ({ handleFilterChange }) => {
   const [selectedStorage, setSelectedRams] = useState([]);
 
   const handleChange = (checkedValues) => {
     setSelectedRams(checkedValues);
     console.log("Selected RAMs:", checkedValues);
   };
+  useEffect(() => {
+    handleFilterChange('storage', selectedStorage)
+  }, [selectedStorage])
 
   return (
     <Card title="Filer By Storage" className="w-full mx-auto mt-10 p-4">

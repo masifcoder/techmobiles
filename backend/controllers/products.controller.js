@@ -129,10 +129,18 @@ const filterProducts = async (req, res) => {
   }
 
   if (brand) {
-    filter.brand = { $regex: new RegExp(`^${brand}$`, 'i') };
+    const brands = brand.split(',');
+    filter.brand = { $in: brands };
   }
-  if (ram) filter.ram = ram;
-  if (storage) filter.storage = storage;
+  // Handle multiple RAM options
+  if (ram) {
+    const rams = ram.split(',');
+    filter.ram = { $in: rams };
+  }
+  if (storage) {
+    const storages = storage.split(',');
+    filter.storage = { $in: storages };
+  }
 
   // console.log(filter);
 

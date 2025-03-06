@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Slider, Card } from 'antd';
 
-const PriceRangeFilter = () => {
+const PriceRangeFilter = ({ handleFilterChange }) => {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(1000);
 
@@ -9,7 +9,11 @@ const PriceRangeFilter = () => {
     setMinPrice(value[0]);
     setMaxPrice(value[1]);
   };
-
+  
+  useEffect(() => {
+    handleFilterChange('minPrice', minPrice);
+    handleFilterChange('maxPrice', maxPrice);
+  }, [minPrice, maxPrice])
 
   return (
     <Card title="Filter by Price Range" className="w-full mx-auto mt-10 p-4">
