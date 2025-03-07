@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Products from "./pages/dashboard/Products";
 import CreateProductForm from './pages/dashboard/CreateProductForm';
+import ProtectedRoute from './components/ProtectedRoute';
 
 
 function App() {
@@ -18,8 +19,7 @@ function App() {
     <>
       <Routes>
         <Route index element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route path="/dashboard" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
           <Route index element={<DashboardHome />} />
           <Route path='products' element={<Products />} />
           <Route path="create" element={<CreateProductForm />} />

@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const userRouter = require('./routes/user.routes');
 const productRouter = require('./routes/product.routes');
 const orderRouter = require('./routes/order.routes');
+const dashboardRouter = require('./routes/admin/dashboard.routes');
 
 // Load environment variables
 dotenv.config();
@@ -26,6 +27,9 @@ app.get('/', (req, res) => {
 app.use('/api/user', userRouter);
 app.use('/api/product', productRouter);
 app.use("/api/order", orderRouter);
+
+// dashboard routes
+app.use("/api/admin", dashboardRouter);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI)

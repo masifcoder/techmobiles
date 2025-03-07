@@ -1,11 +1,35 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
+import { useSelector } from 'react-redux';
 
 const SalesRevenueAreaChart = () => {
+  const [salesData, setSalesData] = useState([]);
+  const [revenueData, setRevenueData] = useState([]);
+  const token = useSelector(state => state.authSlice.token)
   // Sample data - replace with your actual data
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const salesData = [44, 55, 57, 56, 61, 58, 63, 60, 66, 72, 68, 74];
-  const revenueData = [76, 85, 101, 98, 87, 105, 91, 114, 94, 110, 120, 112];
+
+
+  useEffect( () => {
+    const fetchCardData = async () => {
+      try {
+           const response = await axios.get("http://localhost:3000/api/admin/totalSalesRevenue", {
+            headers: {
+              "Authorization": `Bearer ${token}`
+            }
+           });
+           console.log(response.data);
+           setSalesData(response.data.salesData);
+           setRevenueData(response.data.revenueData);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+
+    fetchCardData();
+  }, []);
+
 
   const options = {
     chart: {
@@ -82,11 +106,11 @@ const SalesRevenueAreaChart = () => {
 
   return (
     <div className="sales-revenue-area-chart bg-white shadow-sm mb-5 rounded-lg p-6">
-      <ReactApexChart 
-        options={options} 
-        series={series} 
-        type="area" 
-        height={330} 
+      <ReactApexChart
+        options={options}
+        series={series}
+        type="area"
+        height={330}
       />
     </div>
   );

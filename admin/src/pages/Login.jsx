@@ -1,32 +1,26 @@
-import React, { useContext, useState } from 'react'
-import { Form, Input, Button, Card } from "antd";
-import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import React, {useEffect } from 'react'
+import { Form, Input, Button, Card, message } from "antd";
+import { useNavigate } from 'react-router-dom';
+import { loginUser } from "../redux/authSlice";
+import { useSelector, useDispatch } from "react-redux"
 
 const Login = () => {
-  const [errors, setErrors] = useState(null);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatcher = useDispatch();
+  const { loading, errors, isLogin } = useSelector((state) => state.authSlice);
 
 
   const onFinish = (values) => {
     console.log("Login Success:", values);
-
-
-    axios.post("http://localhost:3003/user/login", values).then((res) => {
-
-      if (res.data.status === "Ok") {
-        navigate("/dashboard")
-      }
-
-    }).catch((err) => {
-
-      console.log(err.response.data)
-      setErrors(err.response.data.errors);
-
-    }).finally(() => setLoading(false))
-
+    dispatcher(loginUser(values));
   };
+
+  useEffect(() => {
+    if (isLogin === true) {
+      message.success('Login successful!');
+      navigate("/dashboard");
+    }
+  }, [isLogin]);
 
 
   return (

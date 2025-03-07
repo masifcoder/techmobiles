@@ -115,7 +115,74 @@ const Login = async (req, res) => {
     }
 }
 
+// admin login
+const AdminLogin = async (req, res) => {
+    try {
+
+        const data = req.body;
+
+        // check user is registered
+        const user = await UserModel.findOne({ email: data.email });
+
+        if (user === null) {
+            return res.status(403).json({
+                status: "Fail",
+                errors: "username or password is incorrect"
+            });
+        }
+
+        //console.log(user);
+
+
+        // check password is correct
+        const passStatus = bcrypt.compareSync(data.password, user.password);
+
+        if (passStatus === false) {
+            return res.status(403).json({
+                status: "Fail",
+                errors: "username or password is incorrect p"
+            });
+        }
+
+        // check user is Admin
+        
+        if (user.role !== 'admin') {
+            return res.status(403).json({
+                status: "Fail",
+                errors: "You are not authorized to login"
+            });
+        }
+
+        // generate a jwt token
+        const token = jwt.sign({ id: user._id }, process.env.JWT_KEY, {expiresIn: "2h"});
+
+        return res.status(200).json({
+            status: "Ok",
+            message: "Successfully logged in",
+            token: token,
+            user: user.name
+        });
+
+    } catch (err) {
+        if (err.name === "ValidationError") {
+
+            const errors = Object.entries(err.errors).map(([field, error]) => ({
+                field,
+                message: error.message,
+            }));
+
+            return res.status(400).json({
+                status: "Fail",
+                errors: errors
+            });
+
+        } else {
+            console.error("Unexpected error:", err);
+        }
+    }
+}
 
 
 
-module.exports = { Signup, Login }
+
+module.exports = { Signup, Login, AdminLogin }
