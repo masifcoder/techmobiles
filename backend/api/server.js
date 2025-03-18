@@ -10,7 +10,6 @@ const dashboardRouter = require('../routes/admin/dashboard.routes');
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
@@ -35,5 +34,5 @@ mongoose.connect(process.env.MONGODB_URI)
     process.exit(1);
   });
 
-// **Export the handler for Vercel**
+// ✅ Export the app as a serverless function for Vercel
 module.exports = app;
