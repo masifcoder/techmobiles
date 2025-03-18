@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+
 const userRouter = require('../routes/user.routes');
 const productRouter = require('../routes/product.routes');
 const orderRouter = require('../routes/order.routes');
@@ -34,5 +35,5 @@ mongoose.connect(process.env.MONGODB_URI)
     process.exit(1);
   });
 
-// ✅ Export the app as a serverless function for Vercel
+// ✅ Export the Express app as a Serverless Function for Vercel
 module.exports = app;
