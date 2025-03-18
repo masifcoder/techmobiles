@@ -11,15 +11,19 @@ import { apiClient } from '../utils/apiClient';
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
       try {
         const response = await apiClient.get('/api/product/all');
         setProducts(response.data.products);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
+
+      setLoading(false);
     };
 
     fetchProducts();
@@ -34,7 +38,7 @@ const HomePage = () => {
       </section>
 
       <section className='py-6' id='productsSection'>
-        <ProductsSection products={products} />
+        <ProductsSection products={products} loading={loading} />
       </section>
 
       <section className='py-6' id='newArrivals'>
