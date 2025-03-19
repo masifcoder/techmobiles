@@ -26,7 +26,7 @@ app.get('/api/mydata', (req, res) => {
 });
 
 // Routes
-app.use('/api/user', userRouter);
+app.use('/user', userRouter);
 app.use('/api/product', productRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/admin', dashboardRouter);
