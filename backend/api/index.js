@@ -17,8 +17,12 @@ app.use(cors());
 app.use(express.json());
 
 // Test route
-app.get('/', (req, res) => {
+app.get('/data', (req, res) => {
   res.json({ message: 'Welcome to the API' });
+});
+
+app.get('/api/mydata', (req, res) => {
+  res.json({ message: 'Welcome to the API my data' });
 });
 
 // Routes
