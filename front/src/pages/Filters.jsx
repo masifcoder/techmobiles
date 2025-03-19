@@ -36,7 +36,7 @@ const Filters = () => {
 
            
 
-            const response = await axios.get(`http://localhost:3000/api/product/filters?${params.toString()}`);
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_API_URL}/product/filters?${params.toString()}`);
             setProducts(response.data.products);
         } catch (error) {
             console.error('Error fetching products:', error);
