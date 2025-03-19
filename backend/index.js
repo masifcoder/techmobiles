@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 // Test route
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.json({ message: 'Welcome to the API' });
 });
 
@@ -44,5 +44,3 @@ mongoose.connect(process.env.MONGODB_URI)
     console.error('Error connecting to MongoDB:', error);
     process.exit(1);
   });
-
-  module.exports = app;
