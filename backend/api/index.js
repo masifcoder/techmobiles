@@ -24,9 +24,9 @@ app.get('/', (req, res) => {
 
 
 // Routes
-app.use('/api/user', userRouter);
-app.use('/api/product', productRouter);
-app.use("/api/order", orderRouter);
+app.use('/user', userRouter);
+app.use('/product', productRouter);
+app.use("/order", orderRouter);
 
 // dashboard routes
 app.use("/api/admin", dashboardRouter);
