@@ -123,7 +123,7 @@ const CreateProductForm = () => {
             // console.log(productData);
             // return;
 
-            const response = await axios.post('http://localhost:3000/api/product/create', productData, {
+            const response = await axios.post(`${import.meta.env.VITE_SERVER_API_URL}/product/create`, productData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
