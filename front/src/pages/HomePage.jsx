@@ -17,7 +17,7 @@ const HomePage = () => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const response = await apiClient.get('/api/product/all');
+        const response = await apiClient.get('/product/all');
         setProducts(response.data.products);
       } catch (error) {
         console.error('Error fetching products:', error);
