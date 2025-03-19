@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Search, User, ShoppingCart, LogOut, LogIn } from "lucide-react"
-import Logo from "../images/Logo.svg";
+import Logo from "../images/logo.svg";
 import { useSelector, useDispatch } from "react-redux";
 import {logout} from "../redux/authSlice"
 import { Dropdown, Menu, Avatar } from 'antd';
