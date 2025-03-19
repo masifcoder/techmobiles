@@ -2,10 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const userRouter = require('./routes/user.routes');
-const productRouter = require('./routes/product.routes');
-const orderRouter = require('./routes/order.routes');
-const dashboardRouter = require('./routes/admin/dashboard.routes');
+const userRouter = require('../routes/user.routes');
+const productRouter = require('../routes/product.routes');
+const orderRouter = require('../routes/order.routes');
+const dashboardRouter = require('../routes/admin/dashboard.routes');
 
 // Load environment variables
 dotenv.config();
@@ -46,4 +46,3 @@ mongoose.connect(process.env.MONGODB_URI)
   });
 
   module.exports = app;
-  
